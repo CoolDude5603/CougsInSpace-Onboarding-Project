@@ -1,3 +1,5 @@
+
+
 //define board object containing 4 LEDs and 1 light sensor
 class LightBoard {
   public:
@@ -93,6 +95,20 @@ void loop() {
   }
 }
 
-void getLightDirection(){
-  
+//method returns the angle of incoming light from the right
+double getLightDirection(){
+  int lightSum[2] = {0,0};
+  //loop through boards to add the direction light vectors together
+  for (int i = 0; i < 4; i++){
+    //multiply amount of light by the direction of each board and assign it to an x and y vector
+    int boardLight[2] = {boardArray[i].direction[0] * boardArray[i].getLight(), 
+                        boardArray[i].direction[1] * boardArray[i].getLight()};
+    
+    //add light vector to the total
+    lightSum[0] += boardLight[0];
+    lightSum[1] += boardLight[1];
+  }
+  //calculate angle using tan(y/x)
+  double angle = tan(lightSum[2]/lightSum[1]);
+  return angle;
 }
