@@ -60,10 +60,10 @@ int RIGHT[3] = {1,0};
 void setup() {
   //create individual boards and set pin numbers
   //first pin is Light Sensor, 2nd-4th are LEDs
-  LightBoard board1(1, 2, 3, 4, 5);
-  LightBoard board2(6, 7, 8, 9, 10);
-  LightBoard board3(11, 12, 13, 14, 15);
-  LightBoard board4(16, 17, 18, 19, 20);
+  LightBoard board1(2, 6, 7, 8, 9);
+  LightBoard board2(3, 11, 12, 13, 14);
+  LightBoard board3(4, 15, 16, 17, 18);
+  LightBoard board4(5, 20, 21, 22, 23);
 
     //set board directions
     board1.setDirection(FORWARD);
