@@ -37,8 +37,8 @@ class LightBoard {
       }
     }
     void setDirection(int dir[2]){
+      direction[0] = dir[0];
       direction[1] = dir[1];
-      direction[2] = dir[2];
     }
     
     int getLight(){
@@ -46,6 +46,12 @@ class LightBoard {
       raw_light = analogRead(sensorPin);
       int light = map(raw_light, 0, 1023, 0, 100);
       return light;
+    }
+
+    void turnOnAll(){
+      for (int i = 0; i < 4; i++){
+        digitalWrite(LEDs[i], HIGH);
+      }
     }
 };
 
@@ -55,7 +61,7 @@ LightBoard boardArray[4];
 int FORWARD[2] = {0,1};
 int BACKWARD[2] = {0,-1};
 int LEFT[2] = {-1,0};
-int RIGHT[3] = {1,0};
+int RIGHT[2] = {1,0};
 
 void setup() {
   //create individual boards and set pin numbers
@@ -73,26 +79,31 @@ void setup() {
 
     
     //add all 4 boards to an array
-    boardArray[1] = board1;
-    boardArray[2] = board2;
-    boardArray[3] = board3;
-    boardArray[4] = board4;
+    boardArray[0] = board1;
+    boardArray[1] = board2;
+    boardArray[2] = board3;
+    boardArray[3] = board4;
 
 
   //loop through arrays to set pin modes
   for (int i = 0; i < 4; i++){
-    for(int j = 1; i < 4; i++){
+    for(int j = 1; i < 4; j++){
       pinMode(boardArray[i].LEDs[j], OUTPUT);//set each LED position to OUTPUT
     }
     pinMode(boardArray[i].sensorPin, INPUT); // set each sensor to INPUT
   }
+
+  for (int i = 0; i < 4; i++){
+    boardArray[i].turnOnAll();
+  }
+
 }
 
 void loop() {
   //repeatedly test for light on each board and turn on light
-  for (LightBoard board : boardArray){
-    board.shouldBeOn();
-  }
+  //for (LightBoard board : boardArray){
+    //board.shouldBeOn();
+  //}
 }
 
 //method returns the angle of incoming light from the right
@@ -109,6 +120,6 @@ double getLightDirection(){
     lightSum[1] += boardLight[1];
   }
   //calculate angle using tan(y/x)
-  double angle = tan(lightSum[2]/lightSum[1]);
+  double angle = tan(lightSum[1]/lightSum[0]);
   return angle;
 }
