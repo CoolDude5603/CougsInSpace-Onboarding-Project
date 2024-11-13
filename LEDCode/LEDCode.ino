@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 
 //define board object containing 4 LEDs and 1 light sensor
@@ -123,3 +124,37 @@ double getLightDirection(){
   double angle = tan(lightSum[1]/lightSum[0]);
   return angle;
 }
+=======
+#include "lightboard.h"
+//#include "lightboard.cpp"
+
+// Global variables declared outside of setup and update, at the top of the file
+  // LightBoard board1(1, 2, 3, 4, 5);
+  // LightBoard board2(6, 7, 8, 9, 10);
+  // LightBoard board3(11, 12, 13, 14, 15);
+  // LightBoard board4(16, 17, 18, 19, 20);
+  // LightBoard boardArray[4] = {board1, board2, board3, board4};
+  byte i2cRecieve;
+  unsigned long timeStart;
+  int LEDStatus; // 0 = off, 1 = on
+
+void setup() {
+  Serial.begin(9600); // initializes transfer of data at 9600 bits or something
+  Wire.begin();
+  i2cRecieve = 255;
+  timeStart = millis();
+  LEDStatus = 0;
+
+  // for (int i = 0; i < 4; i++) {
+  //   boardArray[i].setInsAndOuts();
+  // }
+}
+
+void loop() {
+  // for (int i = 0; i < 4; i++) {
+  //   boardArray[i].shouldBeOn();
+  // }
+}
+//parameters: pin number of led
+
+>>>>>>> Stashed changes
